@@ -36,7 +36,7 @@ const router = createRouter({
       component: JobListingPage
     },
     {
-      path: '/job-detail',
+      path: '/job-detail/:jobid',
       name: 'job-detail',
       component: JobDetailPage
     },

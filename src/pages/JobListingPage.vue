@@ -1,20 +1,22 @@
 <script setup>
 import SliderComponent from '../components/SliderComponent.vue';
 import JobCardComponent from '../components/JobCardComponent.vue';
-import { onMounted } from 'vue';
+import { onMounted, reactive } from 'vue';
 import { jobs } from '../endpoints/UserEndpoint'
 
-// const data = reactive({
-//     jobs: '',
-// })
+const data = reactive({
+    jobs: null,
+})
 
 onMounted(() => {
     loadJobs()
+    console.log(data.jobs);
 })
 
 const loadJobs = async () => {
     const response = await jobs({})
-    console.log(response);
+    data.jobs = response.data
+    console.log(data.jobs);
 }
 </script>
 
@@ -207,8 +209,15 @@ const loadJobs = async () => {
                                     </div>
                                 </div>
                             </div>
+
+                            <li v-for="(job, index) in data.jobs" :key="index">
+                                {{ job }}
+                            </li>
                             <!-- Count of Job list End -->
-                            <!-- <JobCardComponent data="{{ job }}" v-for="(job, index) in data.jobs" :key="index" /> -->
+                            <template v-for="(job, index) in data.jobs" :key="index">
+                                <JobCardComponent :data="job" />
+
+                            </template>
                         </div>
                     </section>
                     <!-- Featured_job_end -->

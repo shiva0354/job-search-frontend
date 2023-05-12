@@ -1,13 +1,17 @@
 <script setup>
 import { defineProps } from 'vue';
 
-const props = defineProps({
-    title: String,
-    companyName: String,
-    location: String,
-    salary: String,
-
+defineProps({
+    data: {
+        _id: String,
+        title: String,
+        salary: Number,
+        lastDateToApply: Date,
+        companyLogo: String,
+        companyName:String
+    }
 })
+
 
 </script>
 
@@ -20,18 +24,18 @@ const props = defineProps({
             </div>
             <div class="job-tittle job-tittle2">
                 <a href="#">
-                    <h4>{{ props.title }}</h4>
+                    <h4>{{ data.title }}</h4>
                 </a>
                 <ul>
-                    <li>Creative Agency</li>
-                    <li><i class="fas fa-map-marker-alt"></i>{{ props.location }}</li>
-                    <li>$3500 - $4000</li>
+                    <li>{{ data.companyName }}</li>
+                    <li><i class="fas fa-map-marker-alt"></i></li>
+                    <li>₹ {{ data.salary }}</li>
                 </ul>
             </div>
         </div>
         <div class="items-link items-link2 f-right">
-            <a href="job_details.html">Full Time</a>
-            <span>Last Date to apply {{ props.lastDateToApply }}</span>
+            <router-link :to="{ name: 'job-detail', params:{ jobid: data._id } }" class="">View Detail</router-link>
+            <span>Last Date to apply : {{ data.lastDateToApply }}</span>
         </div>
     </div>
     <!-- single-job-content -->
